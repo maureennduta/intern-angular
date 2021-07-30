@@ -1,0 +1,46 @@
+
+<mat-toolbar class="toolbar">
+  <img
+    width="40"
+    alt="Medical"
+    src="https://img.icons8.com/material-outlined/24/000000/medical-doctor.png"
+  />
+  <button mat-stroked-button color="secondary" routerLink ="/search" routerLinkActive="active">Search</button>
+</mat-toolbar>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+      <table
+        datatable
+        [dtOptions]="dtOptions"
+        [dtTrigger]="dtTrigger"
+        class="table table-striped"
+      >
+        <thead>
+          <tr>
+            <th>Patient-Name</th>
+            <th>Encounter-Date</th>
+            <th>Location</th>
+            <th>HIV-Status</th>
+            <th>Gender</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+        <tbody ng-if="hivData?.length > 0">
+          <tr *ngFor="let data of hivData">
+            <td>{{ data.name }}</td>
+            <td>{{ data.encounter_datetime }}</td>
+            <td>{{ data.location }}</td>
+            <td>{{ data.hiv_status }}</td>
+            <td>{{ data.gender }}</td>
+            <td>{{ data.age }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-success" (click)="DownloadReport()">Download Report</button>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+</div>

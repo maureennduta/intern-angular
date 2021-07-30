@@ -1,0 +1,67 @@
+<!-- redirect from the link of the HIV values in the table -->
+
+<mat-toolbar class="toolbar">
+  <img
+    width="40"
+    alt="Medical"
+    src="https://img.icons8.com/material-outlined/24/000000/medical-doctor.png"
+  />
+  <button mat-stroked-button color="secondary" routerLink ="/search" routerLinkActive="active">Search</button>
+  <a routerLink="/search" routerLinkActive="active">Search</a> 
+</mat-toolbar>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+      <input 
+      [ngModel]="selectedMonth"  
+      (ngModelChange)="onChange($event)"      
+      type="month"
+      id="start" 
+      name="start"
+      min="2000-01" 
+      value="2018-05">
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+      <table
+        datatable
+        [dtOptions]="dtOptions"
+        [dtTrigger]="dtTrigger"
+        class="table table-striped"
+      >
+        <thead>
+          <tr>
+            <th>Month Name</th>
+            <th>Location</th>
+            <th>HIV Positive</th>
+            <th>HIV Negative</th>
+          </tr>
+        </thead>
+        <tbody ng-if="month?.length > 0">
+          <tr *ngFor="let data of hivData">
+            <td>{{ data.Month }}</td>
+            <td>{{ data.Location }}</td>
+            <!--pass params here-->
+            <td class="report-link"(click) = "navigatePatientList(data,'hiv-positive')">{{ data.Positive }}</td>
+            <td class="report-link"(click) = "navigatePatientList(data,'hiv-negative')">{{ data.Negative }}</td>
+          </tr>
+        </tbody>
+
+        <tbody *ngIf="hivData?.length === 0">
+          <tr>
+            <td colspan="4" class="no-data-available">No data available in table!</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button type="button" class="btn btn-success" (click)="DownloadReport()">Download Report</button>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+</div>

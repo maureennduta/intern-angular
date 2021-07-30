@@ -1,0 +1,70 @@
+<mat-toolbar class="toolbar">
+  <img
+    width="40"
+    alt="Medical"
+    src="https://img.icons8.com/material-outlined/24/000000/medical-doctor.png"
+  />
+  <button mat-stroked-button color="secondary" routerLink ="/monthly-report" routerLinkActive="active">View Reports</button>
+</mat-toolbar>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-8">
+      <input
+        [(ngModel)]="searchString"
+        name="searchString"
+        class="form-control lg-3 ml-75"
+        type="text"
+        placeholder="Search for a patient"
+        (keyup)="searchPatient()"
+      />
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-8">
+      <table
+        datatable class="table table-striped"
+        [dtOptions]="dtOptions"
+        [dtTrigger]="dtTrigger"
+      >
+        <thead>
+          <tr>
+            <th>Patient Id</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+            <th>Age</th>
+            <th>Phone Number</th>
+            <th>HIV Status</th>
+          </tr>
+        </thead>
+
+        <tbody ng-if="patient?.length > 0">
+          <tr *ngFor="let patient of patients">
+            <th scope="row">{{ patient.patientId }}</th>
+            <td>{{ patient.name }}</td>
+            <td>{{ patient.gender }}</td>
+            <td>{{ patient.dob }}</td>
+            <td>{{ patient.age }}</td>
+            <td>{{ patient.phone_number }}</td>
+            <td>{{ patient.hiv_status }}</td>
+          </tr>
+        </tbody>
+
+        <tbody *ngIf="patients?.length === 0">
+          <tr>
+            <td colspan="8" class="no-data-available">
+             Patient not available,Try again.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+<router-outlet></router-outlet>
+<!--routed views go here-->
